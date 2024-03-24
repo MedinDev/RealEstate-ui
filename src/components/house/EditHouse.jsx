@@ -106,7 +106,7 @@ const EditHouse = () => {
 
                         <div className="mb-3">
                             <label htmlFor="houseRoom" className="form-label hotel-color">
-                                Room
+                                House
                             </label>
                             <input
                                 type="number"
@@ -217,7 +217,7 @@ const EditHouse = () => {
                             {imagePreview && (
                                 <img
                                     src={`data:image/jpeg;base64,${imagePreview}`}
-                                    alt="Room preview"
+                                    alt="House preview"
                                     style={{maxWidth: "400px", maxHeight: "400"}}
                                     className="mt-3"
                                 />
