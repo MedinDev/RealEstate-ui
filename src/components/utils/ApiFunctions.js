@@ -46,7 +46,7 @@ export async function getHouseTypes() {
     }
 }
 
-/* This function gets all rooms from the database */
+/* This function gets all houses from the database */
 export async function getAllHouses() {
     try {
         const result = await api.get("/house/all-houses")
@@ -88,30 +88,30 @@ export async function updateHouse(houseId, photo, houseType, housePrice, houseRo
 }
 
 /* This function gets a house by the id */
-export async function getHouseById(roomId) {
+export async function getHouseById(houseId) {
     try {
-        const result = await api.get(`/house/house/${roomId}`)
+        const result = await api.get(`/house/house/${houseId}`)
         return result.data
     } catch (error) {
-        throw new Error(`Error fetching room ${error.message}`)
+        throw new Error(`Error fetching house ${error.message}`)
     }
 }
 
-/* This function saves a new booking to the databse */
-export async function bookRoom(roomId, booking) {
+/* This function saves a new booking to the database */
+export async function bookHouse(houseId, booking) {
     try {
-        const response = await api.post(`/bookings/room/${roomId}/booking`, booking)
+        const response = await api.post(`/bookings/house/${houseId}/booking`, booking)
         return response.data
     } catch (error) {
         if (error.response && error.response.data) {
             throw new Error(error.response.data)
         } else {
-            throw new Error(`Error booking room : ${error.message}`)
+            throw new Error(`Error booking house : ${error.message}`)
         }
     }
 }
 
-/* This function gets alll bokings from the database */
+/* This function gets all bookings from the database */
 export async function getAllBookings() {
     try {
         const result = await api.get("/bookings/all-bookings", {
@@ -123,7 +123,7 @@ export async function getAllBookings() {
     }
 }
 
-/* This function get booking by the cnfirmation code */
+/* This function get booking by the confirmation code */
 export async function getBookingByConfirmationCode(confirmationCode) {
     try {
         const result = await api.get(`/bookings/confirmation/${confirmationCode}`)
@@ -147,11 +147,11 @@ export async function cancelBooking(bookingId) {
     }
 }
 
-/* This function gets all availavle rooms from the database with a given date and a house type */
-export async function getAvailableRooms(checkInDate, checkOutDate, roomType) {
+/* This function gets all available houses from the database with a given date and a house type */
+export async function getAvailableHouses(checkInDate, checkOutDate, houseType) {
     const result = await api.get(
-        `rooms/available-rooms?checkInDate=${checkInDate}
-		&checkOutDate=${checkOutDate}&roomType=${roomType}`
+        `houses/available-houses?checkInDate=${checkInDate}
+		&checkOutDate=${checkOutDate}&houseType=${houseType}`
     )
     return result
 }
@@ -197,7 +197,7 @@ export async function getUserProfile(userId, token) {
     }
 }
 
-/* This isthe function to delete a user */
+/* This is the function to delete a user */
 export async function deleteUser(userId) {
     try {
         const response = await api.delete(`/users/delete/${userId}`, {
