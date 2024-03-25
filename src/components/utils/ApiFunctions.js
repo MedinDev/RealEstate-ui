@@ -49,7 +49,7 @@ export async function getHouseTypes() {
 /* This function gets all houses from the database */
 export async function getAllHouses() {
     try {
-        const result = await api.get("/house/all-houses")
+        const result = await api.get("/houses/all-houses")
         return result.data
     } catch (error) {
         throw new Error("Error fetching houses")
@@ -81,7 +81,7 @@ export async function updateHouse(houseId, photo, houseType, housePrice, houseRo
     formData.append("houseAddress", houseAddress)
     formData.append("houseYear", houseYear)
     formData.append("houseDescription", houseDescription)
-    const response = await api.put(`/house/update/${houseId}`, formData, {
+    const response = await api.put(`/houses/update/${houseId}`, formData, {
         headers: getHeader()
     })
     return response
@@ -90,7 +90,7 @@ export async function updateHouse(houseId, photo, houseType, housePrice, houseRo
 /* This function gets a house by the id */
 export async function getHouseById(houseId) {
     try {
-        const result = await api.get(`/house/house/${houseId}`)
+        const result = await api.get(`/houses/house/${houseId}`)
         return result.data
     } catch (error) {
         throw new Error(`Error fetching house ${error.message}`)
