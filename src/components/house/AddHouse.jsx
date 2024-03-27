@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {addHouse} from "../utils/ApiFunctions.js";
 import HouseTypeSelector from "../common/HouseTypeSelector.jsx";
+import {Link} from "react-router-dom";
 
 const AddHouse = () => {
     const [newHouse, setNewHouse] = useState({
@@ -53,7 +54,7 @@ const AddHouse = () => {
                 newHouse.houseYear,
                 newHouse.houseDescription)
             if (success !== undefined) {
-                setSuccessMessage("House added successfully")
+                setSuccessMessage("Home added successfully")
                 setNewHouse({
                     photo: null,
                     houseType: "",
@@ -187,9 +188,9 @@ const AddHouse = () => {
                                 )}
                             </div>
                             <div className="d-grid gap-2 d-md-flex mt-2">
-                                {/*<Link to={"/existing-rooms"} className="btn btn-outline-info">*/}
-                                {/*    Existing rooms*/}
-                                {/*</Link>*/}
+                                <Link to={"/existing-rooms"} className="btn btn-outline-info">
+                                    Existing house
+                                </Link>
                                 <button type="submit" className="btn btn-outline-primary ml-5">
                                     Save House
                                 </button>
