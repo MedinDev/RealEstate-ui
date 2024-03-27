@@ -54,7 +54,7 @@ const HouseTypeSelector = ({handleHouseInputChange, newHouse}) => {
                                 <input
                                     type="text"
                                     className="form-control"
-                                    placeholder="Enter New House Type"
+                                    placeholder="Enter New Home Type"
                                     value={newHouseType}
                                     onChange={handleNewHouseTypeInputChange}
                                 />

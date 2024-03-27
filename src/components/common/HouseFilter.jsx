@@ -18,6 +18,8 @@ const HouseFilter = ({data, setFilteredData}) => {
     }
 
     const houseTypes = ["", ...new Set(data.map((house) => house.houseType))]
+
+
     return (
         <div>
             <div className="input-group mb-3">
