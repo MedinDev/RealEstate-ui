@@ -1,53 +1,91 @@
-import React from 'react';
+import React, {useContext, useState} from "react"
+import {NavLink, Link} from "react-router-dom"
+import Logout from "../auth/Logout.jsx";
+
 
 const Header = () => {
-    return (
-        <>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Navbar</a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Home</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Link</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr className="dropdown-divider"/>
-                                    </li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link disabled" href="#" tabIndex="-1"
-                                   aria-disabled="true">Disabled</a>
-                            </li>
-                        </ul>
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search"
-                                   aria-label="Search"/>
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-        </>
-    );
-};
+    const [showAccount, setShowAccount] = useState(false)
 
-export default Header;
+    const handleAccountClick = () => {
+        setShowAccount(!showAccount)
+    }
+
+    const isLoggedIn = localStorage.getItem("token")
+    const userRole = localStorage.getItem("userRole")
+
+    return (
+        <nav className="navbar navbar-expand-lg bg-body-tertiary px-5 shadow mt-5 sticky-top">
+            <div className="container-fluid">
+                <Link to={"/"} className="navbar-brand">
+                    <span className="hotel-color">Smart House</span>
+                </Link>
+
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarScroll"
+                    aria-controls="navbarScroll"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div className="collapse navbar-collapse" id="navbarScroll">
+                    <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" aria-current="page" to={"/browse-all-rooms"}>
+                                Browse all houses
+                            </NavLink>
+                        </li>
+
+                        {isLoggedIn && userRole === "ROLE_ADMIN" && (
+                            <li className="nav-item">
+                                <NavLink className="nav-link" aria-current="page" to={"/admin"}>
+                                    Admin
+                                </NavLink>
+                            </li>
+                        )}
+                    </ul>
+
+                    <ul className="d-flex navbar-nav">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to={"/find-booking"}>
+                                Find my booking
+                            </NavLink>
+                        </li>
+
+                        <li className="nav-item dropdown">
+                            <a
+                                className={`nav-link dropdown-toggle ${showAccount ? "show" : ""}`}
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                onClick={handleAccountClick}>
+                                {" "}
+                                Account
+                            </a>
+
+                            <ul
+                                className={`dropdown-menu ${showAccount ? "show" : ""}`}
+                                aria-labelledby="navbarDropdown">
+                                {isLoggedIn ? (
+                                    <Logout/>
+                                ) : (
+                                    <li>
+                                        <Link className="dropdown-item" to={"/login"}>
+                                            Login
+                                        </Link>
+                                    </li>
+                                )}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    )
+}
+
+export default Header
